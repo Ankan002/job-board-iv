@@ -41,6 +41,9 @@
 	--radius-md: calc(var(--radius) - 2px);
 	--radius-lg: var(--radius);
 	--radius-xl: calc(var(--radius) + 4px);
+	--font-primary: var(--font-outfit);
+	--font-secondary: var(--font-space-grotesk);
+	--font-tertiary: var(--font-inter);
 }
 
 :root {
