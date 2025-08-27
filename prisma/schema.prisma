@@ -19,10 +19,10 @@ model job {
     type        String?
     tags        Json?
     salary_text String?
-    days_ago    Int
+    days_ago    Int?
     description String?
-    applyUrl    String
-    sourceUrl   String
+    apply_url   String
+    source_url  String
     created_at  DateTime @default(now())
     updated_at  DateTime @updatedAt
 

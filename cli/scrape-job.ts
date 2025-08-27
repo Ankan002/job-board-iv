@@ -1,3 +1,4 @@
+import { db } from "@/db/client";
 import { sleep, withRetry } from "@/utils/promise.utils";
 import { chromium, Page } from "playwright";
 
@@ -149,18 +150,64 @@ async function run() {
     for (const job of jobs) {
       if (seen.has(job.sourceId)) continue;
       seen.add(job.sourceId);
-      upsertJobPromises.push();
+      upsertJobPromises.push(
+        db.job.upsert({
+          where: {
+            source_id: job.sourceId,
+          },
+          create: {
+            company: job.company,
+            apply_url: job.applicationUrl,
+            days_ago: job.daysAgo,
+            source_id: job.sourceId,
+            source_url: job.sourceUrl,
+            title: job.title,
+            description: job.description,
+            location: job.location,
+            salary_text: job.salaryText,
+            tags: job.tags,
+            type: job.type,
+          },
+          update: {
+            company: job.company,
+            apply_url: job.applicationUrl,
+            days_ago: job.daysAgo,
+            source_id: job.sourceId,
+            source_url: job.sourceUrl,
+            title: job.title,
+            description: job.description,
+            location: job.location,
+            salary_text: job.salaryText,
+            tags: job.tags,
+            type: job.type,
+          },
+        }),
+      );
     }
 
-    // await upsertJobs(enriched);
     totalNew += jobs.length;
 
     pageNumber++;
   }
 
-  console.log(`Done. Upserted ~${totalNew} jobs.`);
+  const upsertedJobsResponse = await Promise.allSettled(upsertJobPromises);
+
+  let success = 0;
+  let failed = 0;
+
+  for (const resp of upsertedJobsResponse) {
+    if (resp.status === "rejected") {
+      failed++;
+    } else {
+      success++;
+    }
+  }
+
+  console.log(
+    `Done. Total ~${totalNew} jobs, Created ~${success} jobs, Failed ~${failed} jobs`,
+  );
   await browser.close();
-  // await prisma.$disconnect();
+  await db.$disconnect();
 }
 
 run()
