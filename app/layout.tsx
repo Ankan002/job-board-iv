@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Outfit, Space_Grotesk, Inter } from "next/font/google";
 import "./globals.css";
+import { QueryProvider, ThemeProvider } from "@/components/providers";
 
 const inter = Inter({
 	variable: "--font-inter",
@@ -30,11 +31,18 @@ export default function RootLayout({
 	children: React.ReactNode;
 }>) {
 	return (
-		<html lang="en">
+		<html lang="en" suppressHydrationWarning>
 			<body
 				className={`${outfit.variable} ${inter.variable} ${spaceGrotesk.variable} antialiased`}
 			>
-				{children}
+				<ThemeProvider
+					attribute="class"
+					defaultTheme="system"
+					enableSystem
+					disableTransitionOnChange
+				>
+					<QueryProvider>{children}</QueryProvider>
+				</ThemeProvider>
 			</body>
 		</html>
 	);
