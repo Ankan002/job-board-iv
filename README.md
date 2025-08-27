@@ -80,4 +80,4 @@ bun dev
 
 ### Performace
 
-<img src="https://github.com/Ankan002/ride-o-meter/blob/main/assets/readme/performance.png" alt="" />
+<img src="https://github.com/Ankan002/job-board-iv/blob/main/assets/readme/performance.png" alt="" />
