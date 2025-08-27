@@ -4,7 +4,7 @@
 	"private": true,
 	"scripts": {
 		"dev": "next dev",
-		"build": "next build --turbopack",
+		"build": "bun db:push && next build --turbopack",
 		"start": "next start",
 		"scrape:job": "tsx cli/scrape-job.ts",
 		"install:chromium": "playwright install chromium",
