@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Outfit, Space_Grotesk, Inter } from "next/font/google";
 import "./globals.css";
 import { QueryProvider, ThemeProvider } from "@/components/providers";
+import { Toaster } from "@/components/ui/sonner";
 
 const inter = Inter({
 	variable: "--font-inter",
@@ -41,7 +42,10 @@ export default function RootLayout({
 					enableSystem
 					disableTransitionOnChange
 				>
-					<QueryProvider>{children}</QueryProvider>
+					<QueryProvider>
+						{children}
+						<Toaster />
+					</QueryProvider>
 				</ThemeProvider>
 			</body>
 		</html>
