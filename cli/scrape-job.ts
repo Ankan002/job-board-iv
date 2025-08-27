@@ -132,6 +132,8 @@ async function run() {
   let totalNew = 0;
   const seen = new Set<string>();
 
+  const upsertJobPromises = [];
+
   while (true) {
     const url = `${BASE}/remote-full-time-jobs?page=${pageNumber}`;
     console.log(`Listing page ${pageNumber} → ${url}`);
@@ -147,7 +149,7 @@ async function run() {
     for (const job of jobs) {
       if (seen.has(job.sourceId)) continue;
       seen.add(job.sourceId);
-      newJobs.push(job);
+      upsertJobPromises.push();
     }
 
     // await upsertJobs(enriched);
