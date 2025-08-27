@@ -63,6 +63,7 @@ const HomeScreen = () => {
 									<SelectItem
 										value={o.value}
 										className="cursor-pointer"
+										key={o.value}
 									>
 										{o.label}
 									</SelectItem>
@@ -84,7 +85,7 @@ const HomeScreen = () => {
 							className="lg:w-60 w-40"
 						/>
 					</div>
-					<div className="w-full flex flex-wrap mt-4">
+					<div className="w-full flex overflow-auto mt-4">
 						<Button
 							className="mr-1"
 							size={"icon"}

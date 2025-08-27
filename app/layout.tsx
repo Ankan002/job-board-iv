@@ -3,6 +3,7 @@ import { Outfit, Space_Grotesk, Inter } from "next/font/google";
 import "./globals.css";
 import { QueryProvider, ThemeProvider } from "@/components/providers";
 import { Toaster } from "@/components/ui/sonner";
+import { ToggleTheme } from "@/components/common/toggle-theme";
 
 const inter = Inter({
 	variable: "--font-inter",
@@ -38,13 +39,14 @@ export default function RootLayout({
 			>
 				<ThemeProvider
 					attribute="class"
-					defaultTheme="system"
+					defaultTheme="dark"
 					enableSystem
 					disableTransitionOnChange
 				>
 					<QueryProvider>
 						{children}
 						<Toaster />
+						<ToggleTheme />
 					</QueryProvider>
 				</ThemeProvider>
 			</body>
