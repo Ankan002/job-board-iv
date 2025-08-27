@@ -12,6 +12,10 @@ export const useHomeScreen = () => {
 	const [totalPages, setTotalPages] = useState<number>(0);
 	const [company, setCompany] = useState<string>("");
 	const [location, setLocation] = useState<string>("");
+	const [sort, setSort] = useState<"desc" | "asc">("desc");
+	const [sortBy, setSortBy] = useState<
+		"company" | "title" | "created_at" | "days_ago"
+	>("created_at");
 
 	const [debouncedKeyword] = useDebounce(searchKeyword, 200);
 	const onDebouncedKeywordChange = useDebouncedCallback(() => {
@@ -24,6 +28,8 @@ export const useHomeScreen = () => {
 		q: debouncedKeyword,
 		company,
 		location,
+		sort,
+		sort_by: sortBy,
 	});
 
 	const onIncrementPage = () => {
@@ -46,6 +52,18 @@ export const useHomeScreen = () => {
 	const pickCompany = (company: string) => {
 		setPage(1);
 		setCompany(company);
+	};
+
+	const toggleSort = () => {
+		setPage(1);
+		setSort((prev) => (prev === "asc" ? "desc" : "asc"));
+	};
+
+	const pickSortBy = (
+		term: "company" | "title" | "created_at" | "days_ago",
+	) => {
+		setPage(1);
+		setSortBy(term);
 	};
 
 	useEffect(() => {
@@ -84,5 +102,9 @@ export const useHomeScreen = () => {
 		pickCompany,
 		page,
 		totalPages,
+		toggleSort,
+		pickSortBy,
+		sort,
+		sortBy,
 	};
 };

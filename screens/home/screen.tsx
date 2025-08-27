@@ -3,22 +3,28 @@
 import { JobCard } from "@/components/cards";
 import { useHomeScreen } from "./hook";
 import { Input } from "@/components/ui/input";
-import { Funnel } from "lucide-react";
+import { ArrowDownZA, ArrowUpZA, Funnel, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
 	Pagination,
 	PaginationContent,
 	PaginationItem,
-	PaginationLink,
 	PaginationNext,
 	PaginationPrevious,
 } from "@/components/ui/pagination";
 import { Skeleton } from "@/components/ui/skeleton";
+import {
+	Select,
+	SelectContent,
+	SelectItem,
+	SelectTrigger,
+	SelectValue,
+} from "@/components/ui/select";
+import { SORT_BY_SELECT_DATA } from "@/constants/configs";
 
 const HomeScreen = () => {
 	const {
 		data,
-		isFetching,
 		isLoading,
 		onDecrementPage,
 		onIncrementPage,
@@ -30,18 +36,52 @@ const HomeScreen = () => {
 		pickLocation,
 		page,
 		totalPages,
+		pickSortBy,
+		toggleSort,
+		sort,
+		sortBy,
+		isFetching,
 	} = useHomeScreen();
 
 	return (
 		<div className="w-full flex-col flex min-h-screen bg-background font-primary text-foreground">
 			<div className="w-full flex flex-col items-center p-4">
 				<div className="w-full flex flex-col max-w-[1200px]">
-					<div className="w-full flex justify-end">
+					<div className="w-full flex justify-end items-center">
+						{isFetching && (
+							<Loader2 className="animate-spin mr-1.5" />
+						)}
+						<Select
+							defaultValue={sortBy}
+							onValueChange={pickSortBy}
+						>
+							<SelectTrigger className="mr-1.5 cursor-pointer min-w-20">
+								<SelectValue />
+							</SelectTrigger>
+							<SelectContent>
+								{SORT_BY_SELECT_DATA.map((o) => (
+									<SelectItem
+										value={o.value}
+										className="cursor-pointer"
+									>
+										{o.label}
+									</SelectItem>
+								))}
+							</SelectContent>
+						</Select>
+						<Button
+							size="icon"
+							className="mr-1.5 cursor-pointer"
+							onClick={toggleSort}
+						>
+							{sort === "asc" && <ArrowUpZA />}
+							{sort === "desc" && <ArrowDownZA />}
+						</Button>
 						<Input
 							value={searchKeyword}
 							onChange={onSearchKeywordChange}
 							placeholder="Search Keyword"
-							className="w-60"
+							className="lg:w-60 w-40"
 						/>
 					</div>
 					<div className="w-full flex flex-wrap mt-4">
