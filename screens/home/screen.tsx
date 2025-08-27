@@ -138,18 +138,22 @@ const HomeScreen = () => {
 					<div className="w-full flex justify-center items-center mt-4">
 						<Pagination>
 							<PaginationContent>
-								<PaginationItem>
-									<PaginationPrevious
-										onClick={onDecrementPage}
-										className="cursor-pointer"
-									/>
-								</PaginationItem>
-								<PaginationItem>
-									<PaginationNext
-										onClick={onIncrementPage}
-										className="cursor-pointer"
-									/>
-								</PaginationItem>
+								{page > 1 && (
+									<PaginationItem>
+										<PaginationPrevious
+											onClick={onDecrementPage}
+											className="cursor-pointer"
+										/>
+									</PaginationItem>
+								)}
+								{page < totalPages && (
+									<PaginationItem>
+										<PaginationNext
+											onClick={onIncrementPage}
+											className="cursor-pointer"
+										/>
+									</PaginationItem>
+								)}
 							</PaginationContent>
 						</Pagination>
 					</div>

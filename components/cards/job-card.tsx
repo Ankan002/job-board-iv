@@ -26,7 +26,7 @@ export const JobCard = (props: Props) => {
 			<CardHeader>
 				<CardTitle>{job.title}</CardTitle>
 				<CardAction>
-					<a href={job.apply_url} type="_blank">
+					<a href={job.apply_url} target="_blank">
 						<SquareArrowOutUpRight size={15} />
 					</a>
 				</CardAction>
