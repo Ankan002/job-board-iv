@@ -9,7 +9,7 @@ datasource db {
     directUrl = env("DIRECT_DB_URL")
 }
 
-model jobs {
+model job {
     id          String   @id @default(ulid())
     source_id   String   @unique
     title       String
