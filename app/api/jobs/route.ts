@@ -92,3 +92,5 @@ export const GET = withErrorHandler(async (request) => {
 		},
 	);
 });
+
+export const revalidate = 0;
