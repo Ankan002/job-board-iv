@@ -15,7 +15,7 @@ model jobs {
     title       String
     company     String
     location    String?
-    type        String? // e.g., Full-Time, Contract
+    type        String?
     tags        Json?
     salary_text String?
     days_ago    Int
@@ -24,4 +24,7 @@ model jobs {
     sourceUrl   String
     created_at  DateTime @default(now())
     updated_at  DateTime @updatedAt
+
+    @@index([title, company, location, type])
+    @@index([tags])
 }
