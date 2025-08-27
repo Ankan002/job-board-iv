@@ -82,5 +82,7 @@ export const useHomeScreen = () => {
 		pickLocation,
 		company,
 		pickCompany,
+		page,
+		totalPages,
 	};
 };

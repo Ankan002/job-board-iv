@@ -5,6 +5,15 @@ import { useHomeScreen } from "./hook";
 import { Input } from "@/components/ui/input";
 import { Funnel } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import {
+	Pagination,
+	PaginationContent,
+	PaginationItem,
+	PaginationLink,
+	PaginationNext,
+	PaginationPrevious,
+} from "@/components/ui/pagination";
+import { Skeleton } from "@/components/ui/skeleton";
 
 const HomeScreen = () => {
 	const {
@@ -19,6 +28,8 @@ const HomeScreen = () => {
 		pickCompany,
 		location,
 		pickLocation,
+		page,
+		totalPages,
 	} = useHomeScreen();
 
 	return (
@@ -59,6 +70,13 @@ const HomeScreen = () => {
 							</Button>
 						)}
 					</div>
+					{isLoading && !data && (
+						<div className="w-full grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 mt-4">
+							{new Array(15).fill(0).map((_, i) => (
+								<Skeleton className="w-full h-60" key={i} />
+							))}
+						</div>
+					)}
 					{data?.ok && data.data.jobs.length < 1 ? (
 						<p className="text-center w-full text-3xl font-secondary mt-4">
 							No data to show here!
@@ -76,6 +94,24 @@ const HomeScreen = () => {
 								))}
 						</div>
 					)}
+					<div className="w-full flex justify-center items-center mt-4">
+						<Pagination>
+							<PaginationContent>
+								<PaginationItem>
+									<PaginationPrevious
+										onClick={onDecrementPage}
+										className="cursor-pointer"
+									/>
+								</PaginationItem>
+								<PaginationItem>
+									<PaginationNext
+										onClick={onIncrementPage}
+										className="cursor-pointer"
+									/>
+								</PaginationItem>
+							</PaginationContent>
+						</Pagination>
+					</div>
 				</div>
 			</div>
 		</div>
